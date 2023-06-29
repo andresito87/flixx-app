@@ -417,8 +417,6 @@ function initSwiper() {
     spaceBetween: 30,
     freeMode: true,
     loop: true,
-    effect: 'slide',
-    resistence: false,
     autoplay: {
       delay: 2000,
       disableOnInteraction: false,
