@@ -412,14 +412,12 @@ async function displayMovieTrailer() {
 
 function initSwiper() {
   const swiper = new Swiper('.swiper', {
-    speed: 600,
     slidesPerView: 1,
     spaceBetween: 30,
-    freeMode: true,
+    freeMode: false,
     loop: true,
     autoplay: {
-      delay: 2000,
-      disableOnInteraction: false,
+      delay: 3000
     },
     breakpoints: {
       500: {
