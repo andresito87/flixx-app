@@ -74,7 +74,7 @@ async function displayPopularShows() {
           <div class="card-body">
             <h5 class="card-title">${show.name}</h5>
             <p class="card-text">
-              <small class="text-muted">Air Date: ${show.first_air_date}</small>
+              <small class="text-muted">Estreno: ${show.first_air_date.split("-").reverse().join("-")}</small>
             </p>
           </div>
         `;
@@ -116,32 +116,29 @@ async function displayMovieDetails() {
       <i class="fas fa-star text-primary"></i>
       ${movie.vote_average.toFixed(1)} / 10
     </p>
-    <p class="text-muted">Release Date: ${movie.release_date}</p>
+    <p class="text-muted">Fecha de Estreno: ${movie.release_date.split("-").reverse().join("-")}</p>
     <p>
       ${movie.overview}
     </p>
-    <h5>Genres</h5>
+    <h5>Géneros</h5>
     <ul class="list-group">
       ${movie.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
     </ul>
-    <a href="${movie.homepage
-    }" target="_blank" class="btn">Visit Movie Homepage</a>
+    <a href="${movie.homepage}" target="_blank" class="btn">Visitar Sitio Oficial</a>
   </div>
 </div>
 <div class="details-bottom">
-  <h2>Movie Info</h2>
+  <h2>Información</h2>
   <ul>
-    <li><span class="text-secondary">Budget:</span> $${addCommasToNumber(
-      movie.budget
-    )}</li>
-    <li><span class="text-secondary">Revenue:</span> $${addCommasToNumber(
-      movie.revenue
-    )}</li>
-    <li><span class="text-secondary">Runtime:</span> ${movie.runtime
-    } minutes</li>
-    <li><span class="text-secondary">Status:</span> ${movie.status}</li>
+    <li><span class="text-secondary">Presupuesto:</span> 
+    ${addCommasToNumber(movie.budget)} $</li>
+    <li><span class="text-secondary">Recaudación:</span> 
+    ${addCommasToNumber(movie.revenue)} $</li>
+    <li><span class="text-secondary">Duración:</span> 
+    ${movie.runtime} minutos</li>
+    <li><span class="text-secondary">Estado:</span> ${movie.status === "Released" ? "Lanzada" : "Pendiente de lanzamiento"}</li>
   </ul>
-  <h4>Production Companies</h4>
+  <h4>Productoras</h4>
   <div class="list-group">
     ${movie.production_companies
       .map((company) => `<span>${company.name}</span>`)
@@ -186,28 +183,28 @@ async function displayShowDetails() {
       <i class="fas fa-star text-primary"></i>
       ${show.vote_average.toFixed(1)} / 10
     </p>
-    <p class="text-muted">Last Air Date: ${show.last_air_date}</p>
+    <p class="text-muted">Último Episodio: ${show.last_air_date.split("-").reverse().join("-")}</p>
     <p>
       ${show.overview}
     </p>
-    <h5>Genres</h5>
+    <h5>Géneros</h5>
     <ul class="list-group">
       ${show.genres.map((genre) => `<li>${genre.name}</li>`).join('')}
     </ul>
     <a href="${show.homepage
-    }" target="_blank" class="btn">Visit show Homepage</a>
+    }" target="_blank" class="btn">Visitar Página Oficial</a>
   </div>
 </div>
 <div class="details-bottom">
-  <h2>Show Info</h2>
+  <h2>Información</h2>
   <ul>
-    <li><span class="text-secondary">Number of Episodes:</span> ${show.number_of_episodes
+    <li><span class="text-secondary">Cantidad de episodios:</span> ${show.number_of_episodes
     }</li>
-    <li><span class="text-secondary">Last Episode To Air:</span> ${show.last_episode_to_air.name
+    <li><span class="text-secondary">Último episodio emitido:</span> ${show.last_episode_to_air.name
     }</li>
-    <li><span class="text-secondary">Status:</span> ${show.status}</li>
+    <li><span class="text-secondary">Estado:</span> ${show.status === "Returning Series" ? "En Emisión" : "Finalizada"}</li>
   </ul>
-  <h4>Production Companies</h4>
+  <h4>Productoras</h4>
   <div class="list-group">
     ${show.production_companies
       .map((company) => `<span>${company.name}</span>`)
@@ -299,16 +296,16 @@ function displaySearchResults(results) {
             <h5 class="card-title">${global.search.type === 'movie' ? result.title : result.name
       }</h5>
             <p class="card-text">
-              <small class="text-muted">Release: ${global.search.type === 'movie'
-        ? result.release_date
-        : result.first_air_date
+              <small class="text-muted">Estreno: ${global.search.type === 'movie'
+        ? result.release_date.split("-").reverse().join("-")
+        : result.first_air_date.split("-").reverse().join("-")
       }</small>
             </p>
           </div>
         `;
 
     document.querySelector('#search-results-heading').innerHTML = `
-              <h2>${results.length} of ${global.search.totalResults} Results for ${global.search.term}</h2>
+              <h2><small>${results.length} de ${global.search.totalResults} Resultados para </small>"${global.search.term}"</h2>
     `;
 
     document.querySelector('#search-results').appendChild(div);
@@ -322,9 +319,9 @@ function displayPagination() {
   const div = document.createElement('div');
   div.classList.add('pagination');
   div.innerHTML = `
-  <button class="btn btn-primary" id="prev">Prev</button>
-  <button class="btn btn-primary" id="next">Next</button>
-  <div class="page-counter">Page ${global.search.page} of ${global.search.totalPages}</div>
+  <button class="btn btn-primary" id="prev">Anterior</button>
+  <button class="btn btn-primary" id="next">Siguiente</button>
+  <div class="page-counter">Página ${global.search.page} de ${global.search.totalPages}</div>
   `;
 
   document.querySelector('#pagination').appendChild(div);
