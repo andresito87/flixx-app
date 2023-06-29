@@ -136,7 +136,7 @@ async function displayMovieDetails() {
     ${addCommasToNumber(movie.revenue)} $</li>
     <li><span class="text-secondary">Duración:</span> 
     ${movie.runtime} minutos</li>
-    <li><span class="text-secondary">Estado:</span> ${movie.status === "Released" ? "Lanzada" : "Pendiente de lanzamiento"}</li>
+    <li><span class="text-secondary">Estado:</span> ${movie.status === "Released" ? "Estrenada" : "Pendiente de estreno"}</li>
   </ul>
   <h4>Productoras</h4>
   <div class="list-group">
@@ -198,7 +198,7 @@ async function displayShowDetails() {
 <div class="details-bottom">
   <h2>Información</h2>
   <ul>
-    <li><span class="text-secondary">Cantidad de episodios:</span> ${show.number_of_episodes
+    <li><span class="text-secondary">Número de episodios:</span> ${show.number_of_episodes
     }</li>
     <li><span class="text-secondary">Último episodio emitido:</span> ${show.last_episode_to_air.name
     }</li>
@@ -374,14 +374,53 @@ async function displaySlider() {
   });
 }
 
+// Display a trailer for a movie
+async function displayMovieTrailer() {
+  const movieId = window.location.search.split('=')[1];
+
+  const movie = await fetchAPIData(`movie/${movieId}/videos`);
+
+  const div = document.createElement('div');
+
+  div.innerHTML = `<div class="details-bottom">
+    <h2>Trailer</h2>
+    <div class="iframe-container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/${movie.results[0].key}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    </div>`;
+  document.querySelector('#trailer').appendChild(div);
+}
+
+// Display a trailer for a show
+// API doesn't return trailers for shows, so I will just leave this here for future reference
+// async function displayShowTrailer() {
+//   const showId = window.location.search.split('=')[1];
+
+//   const show = await fetchAPIData(`tv/${showId}/videos`);
+
+//   const div = document.createElement('div');
+
+//   div.innerHTML = `<div class="details-bottom">
+//     <h2>Trailer</h2>
+//     <div class="iframe-container">
+//       <iframe width="560" height="315" src="https://www.youtube.com/embed/${show.results[0].key}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+//     </div>
+//     </div>`;
+//   document.querySelector('#trailer').appendChild(div);
+// }
+
+
 function initSwiper() {
   const swiper = new Swiper('.swiper', {
+    speed: 600,
     slidesPerView: 1,
     spaceBetween: 30,
     freeMode: true,
     loop: true,
+    effect: 'slide',
+    resistence: false,
     autoplay: {
-      delay: 4000,
+      delay: 2000,
       disableOnInteraction: false,
     },
     breakpoints: {
@@ -479,9 +518,11 @@ function init() {
       break;
     case '/movie-details.html':
       displayMovieDetails();
+      displayMovieTrailer();
       break;
     case '/tv-details.html':
       displayShowDetails();
+      //displayShowTrailer();
       break;
     case '/search.html':
       search();

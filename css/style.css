@@ -223,6 +223,15 @@ section h2 {
   margin: 50px 0 30px;
 }
 
+/*Trailer*/
+.iframe-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0 30px;
+}
+
+
 @media (max-width: 700px) {
   .details-top {
     display: block;
@@ -245,9 +254,6 @@ section h2 {
 
 .details-top .btn {
   margin-top: 20px;
-}
-
-.details-bottom {
 }
 
 .details-bottom li {
