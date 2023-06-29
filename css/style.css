@@ -175,6 +175,11 @@ ul {
   color: var(--color-secondary);
 }
 
+.author {
+  text-align: center;
+  margin: 20px 20px;
+}
+
 /* Section: Now Playing */
 
 section.now-playing {

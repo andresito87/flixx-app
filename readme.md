@@ -12,4 +12,4 @@ Este proyecto incluye información detallada sobre las películas y series más 
 
 Aplicación desplegada en [Netlify](https://www.netlify.com/)
 
-Link:
+Link: [Flixx App](https://stunning-entremet-c3997b.netlify.app)
